@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 struct SNode 
 {
 	int nData;
@@ -12,8 +13,10 @@ struct SNode
 
 SNode* Push(SNode* pStart, int data);
 SNode* Pop(SNode* pStart);
-int Front(SNode* pStart);
-int Back(SNode* pStart);
+template<typename T>
+T Front(SNode* pStart);
+template<typename T>
+T Back(SNode* pStart);
 bool Empty(SNode* pStart);
 int Size(SNode* pStart);
 
@@ -103,11 +106,13 @@ SNode* Pop(SNode* pStart)
 	return pNode;
 }
 
-int Front(SNode* pStart)
+template <typename T>
+T Front(SNode* pStart)
 {
 	return pStart->nData;
 }
 
+template <typename T>
 int Back(SNode* pStart)
 {
 	SNode* pNode = pStart;

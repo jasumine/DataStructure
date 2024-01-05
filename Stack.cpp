@@ -12,15 +12,22 @@ struct SNode
 
 SNode* Push(SNode* pStart, int data);
 void Pop(SNode* pStart);
+int Top(SNode* pStart);
 bool Empty(SNode* pStart);
 int Size(SNode* pStart);
-template<typename T> T top(SNode* pStart);
 void PrintStack(SNode* pStart);
 
 void main()
 {
 	SNode* pBegin = NULL;
 	SNode* pEnd = NULL;
+
+	if (Empty(pBegin))
+		cout << "Empty: true" << endl;
+	else
+		cout << "Empty: false" << endl;
+
+	cout << "size:" << Size(pBegin) << endl;
 
 	pEnd = Push(pEnd, 10);
 	pBegin = pEnd;
@@ -31,8 +38,31 @@ void main()
 	pEnd = Push(pEnd, 50);
 
 	PrintStack(pBegin);
+	cout << "Top:" << Top(pBegin) << endl;
+	
 	Pop(pBegin);
+	
+	cout << "Top:" << Top(pBegin) << endl;
 	PrintStack(pBegin);
+
+	if (Empty(pBegin))
+		cout << "Empty: true" << endl;
+	else
+		cout << "Empty: false" << endl;
+
+	cout << "size:" << Size(pBegin) << endl;
+
+	Pop(pBegin);
+	Pop(pBegin);
+	Pop(pBegin);
+	Pop(pBegin);
+
+	if (Empty(pBegin))
+		cout << "Empty: true" << endl;
+	else
+		cout << "Empty: false" << endl;
+
+	cout << "size:" << Size(pBegin) << endl;
 }
 
 
@@ -53,22 +83,74 @@ SNode* Push(SNode* pStart, int data)
 
 void Pop(SNode* pStart)
 {
+	cout << "Pop" << endl;
+
 	SNode* pNode = pStart;
 	SNode* pPre = NULL;
 
-	while (pNode->pNext)
+	if (pNode->pNext != nullptr)
 	{
-		pPre = pNode;
-		pNode = pNode->pNext;
+		while(pNode->pNext)
+		{
+			pPre = pNode;
+			pNode = pNode->pNext;
+		}
+		pPre->pNext = nullptr;
+		delete pNode;
 	}
-	pPre->pNext = nullptr;
-	delete pNode;
-
+	else
+	{
+		pNode = nullptr;
+		delete pNode;
+	}
+	
 }
 
-bool Empty(SNode* pStart);
-int Size(SNode* pStart);
-template<typename T> T top(SNode* pStart);
+int Top(SNode* pStart)
+{
+	SNode* pNode = pStart;
+
+	while (pNode->pNext)
+	{
+		pNode= pNode->pNext;
+	}
+
+	return pNode->nData;
+}
+
+bool Empty(SNode* pStart)
+{
+	SNode* pNode = pStart;
+	
+	if (pStart == nullptr)
+		return true;
+	else
+		return false;
+}
+
+int Size(SNode* pStart)
+{
+	SNode* pNode = pStart;
+	int count = 0;
+
+	if (pNode != nullptr)
+	{
+		while (pNode->pNext != nullptr)
+		{
+			count++;
+			pNode = pNode->pNext;
+		}
+
+		return count;
+	}
+	else
+	{
+		return count;
+	}
+
+}
+ 
+
 void PrintStack(SNode* pStart)
 {
 	SNode* pNode = pStart;
